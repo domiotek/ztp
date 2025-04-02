@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: fintrack_database
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: fintrack
+    ports:
+      - "5432:5432"
+    volumes:
+      - app_data:/var/lib/postgresql/data
+
+volumes:
+  app_data:
+    driver: local
