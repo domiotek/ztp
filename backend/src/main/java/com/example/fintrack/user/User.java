@@ -1,6 +1,8 @@
 package com.example.fintrack.user;
 
+import com.example.fintrack.chat.UserChatConnection;
 import com.example.fintrack.event.Event;
+import com.example.fintrack.message.LastReadMessage;
 import com.example.fintrack.order.Order;
 import com.example.fintrack.payment.Payment;
 import com.example.fintrack.category.Category;
@@ -38,6 +40,14 @@ public class User {
     @OneToMany(mappedBy = "user")
     @ToString.Exclude
     private Set<Order> orders;
+
+    @OneToMany(mappedBy =  "user")
+    @ToString.Exclude
+    Set<UserChatConnection> chats;
+
+    @OneToMany(mappedBy = "user")
+    @ToString.Exclude
+    Set<LastReadMessage> lastReadMessages;
 
     @ManyToMany
     @ToString.Exclude
