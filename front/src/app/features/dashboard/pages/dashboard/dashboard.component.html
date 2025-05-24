@@ -1,1 +1,27 @@
-<p>dashboard works!</p>
+<div class="header">
+  <app-time-range-selector
+    [customRangeAllowed]="false"
+    [initialTimeRange]="projectionRange()"
+    [constraints]="rangeConstraints()"
+    (timeRangeChange)="onProjectionDateChange($event)"
+  />
+
+  <button type="button" mat-flat-button [disabled]="addBillButtonDisabled()">
+    <mat-icon>add</mat-icon> Dodaj wydatek
+  </button>
+</div>
+
+<div class="content">
+  <app-widget-wrapper header="Wydano"> <app-spending-summary-widget #widgetContent /> </app-widget-wrapper>
+
+  <div class="widget-row">
+    <app-widget-wrapper header="Wydatki">
+      <app-spendings-widget #widgetContent />
+    </app-widget-wrapper>
+
+    <app-widget-wrapper header="Wydarzenia">
+      <app-events-widget #widgetContent />
+    </app-widget-wrapper>
+    <app-widget-wrapper header="Kategorie"> <app-categories-widget #widgetContent /> </app-widget-wrapper>
+  </div>
+</div>

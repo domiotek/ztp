@@ -1,0 +1,46 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: -webkit-fill-available;
+
+  .header {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 4em;
+    justify-content: space-between;
+
+    button {
+      padding: 1.75em;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    margin-top: 1em;
+    height: 100%;
+  }
+
+  .widget-row {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 2em;
+  }
+}
+
+@media (width > 425px) {
+  .header {
+    button {
+      align-self: flex-end;
+    }
+  }
+}
+
+@media (width > 600px) {
+  .header {
+    gap: unset !important;
+    flex-direction: row !important;
+  }
+}

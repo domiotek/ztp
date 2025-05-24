@@ -1,0 +1,27 @@
+<button type="button" mat-icon-button (click)="prev()" [disabled]="prevDisabled()">
+  <mat-icon>chevron_left</mat-icon>
+</button>
+
+@if (customRangeAllowed()) {
+  <button class="clickable-label label" type="button" mat-icon-button (click)="openPicker()">
+    {{ label() }}
+  </button>
+} @else {
+  <p class="label">{{ label() }}</p>
+}
+
+<button type="button" mat-icon-button (click)="next()" [disabled]="nextDisabled()">
+  <mat-icon>chevron_right</mat-icon>
+</button>
+
+<mat-date-range-input [rangePicker]="picker" [dateFilter]="dateFilter()">
+  <input
+    matStartDate
+    title="start date"
+    [value]="timeRange().from"
+    (dateChange)="updateTimeRange($event.value, 'from')"
+  />
+  <input matEndDate title="end date" [value]="timeRange().to" (dateChange)="updateTimeRange($event.value, 'to')" />
+</mat-date-range-input>
+
+<mat-date-range-picker #picker (closed)="onPickerClose()" />

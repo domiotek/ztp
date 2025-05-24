@@ -1,0 +1,33 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+
+  position: relative;
+
+  mat-date-range-input {
+    position: absolute;
+    pointer-events: none;
+    top: 100%;
+    left: 0;
+    opacity: 0;
+    height: 0px;
+    overflow: hidden;
+  }
+
+  .label {
+    font-weight: 500;
+  }
+
+  .clickable-label {
+    font-size: 1rem;
+    font-style: normal;
+    line-height: 1.25rem;
+    width: fit-content;
+
+    ::ng-deep span {
+      border-radius: 20px !important;
+    }
+  }
+}

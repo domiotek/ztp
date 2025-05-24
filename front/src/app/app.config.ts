@@ -13,6 +13,7 @@ import { httpErrorInterceptor } from './core/interceptors/http-error/http-error.
 import { AppStateStore } from './core/store/app-state.store';
 import { firstValueFrom, switchMap } from 'rxjs';
 import { ConfigService } from './core/services/config/config.service';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 async function initializeAppFactory(configService: ConfigService) {
   try {
@@ -27,6 +28,7 @@ export const appConfig: ApplicationConfig = {
     provideExperimentalZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor, httpErrorInterceptor])),
+    provideAnimations(),
     provideAppInitializer(() => {
       const configService = inject(ConfigService);
       return initializeAppFactory(configService);

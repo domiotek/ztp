@@ -1,0 +1,38 @@
+<mat-card>
+  <mat-card-header>
+    {{ header() }}
+
+    @if (hasInteraction()) {
+      <button type="button" mat-icon-button (click)="triggerInteraction()" [disabled]="loading()">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    }
+  </mat-card-header>
+  <mat-card-content>
+    @if (loading()) {
+      @if (refreshing()) {
+        <ng-container *ngTemplateOutlet="reloadingContent"></ng-container>
+      } @else {
+        <ng-container *ngTemplateOutlet="loadingContent"></ng-container>
+      }
+    }
+
+    <div class="widgetContent" [ngClass]="{ 'widgetContent--loading': loading() && !refreshing() }">
+      <ng-content></ng-content>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #loadingContent>
+  <div class="loadingState">
+    <mat-spinner mode="indeterminate"></mat-spinner>
+    <h5>Jeszcze chwila...</h5>
+  </div>
+</ng-template>
+
+<ng-template #reloadingContent>
+  <div class="loadingState overlay">
+    <mat-spinner mode="indeterminate"></mat-spinner>
+    <h5>Odświeżanie...</h5>
+  </div>
+</ng-template>
