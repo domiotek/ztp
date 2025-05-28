@@ -1,0 +1,25 @@
+<div class="left_container">
+  <div class="circle bold">{{ event().name.slice(0,2).toUpperCase() }}</div>
+  <div class="info">
+    <div class="info_top bold">{{ event().name }}</div>
+    <div class="info_bottom">
+      @switch (event().status) {
+        @case ('UPCOMING') {
+          <div class="color_label" [style.backgroundColor]="'#f9c74f'"></div>
+          <span class="status">Nachodzące</span>
+        }
+        @case ('ONGOING') {
+          <div class="color_label"  [style.backgroundColor]="'#008000'"></div>
+          <span class="status">W trakcie</span>
+        }
+        @case ('FINISHED') {
+          <div class="color_label" [style.backgroundColor]="'#ff2c2c'"></div>
+          <span class="statu">Zakończone</span>
+        }
+      }
+    </div>
+  </div>
+</div>
+<div class="right_container">
+  <mat-icon>chevron_right</mat-icon>
+</div>

@@ -1,0 +1,45 @@
+@use '../../../../styles/variables' as *;
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: inherit;
+  width: 100%;
+
+  .left_container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .circle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      background-color: $gray-blue;
+      color: white;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+
+      .info_bottom {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-left: 8px;
+        font-size: 12px;
+
+        .color_label {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}

@@ -1,1 +1,40 @@
-<p>events works!</p>
+<div class="header">
+  <app-time-range-selector
+    [customRangeAllowed]="true"
+    [initialTimeRange]="projection_range()"
+    (timeRangeChange)="onProjectionDateChange($event)"
+  />
+  <button type="button" mat-flat-button><mat-icon>add</mat-icon> Dodaj wydarzenie</button>
+</div>
+
+<div class="content">
+  @if (!isMobile() || !selectedEvent()) {
+    <div class="content__list_container">
+      <div class="content__list_container__search">
+        <app-search-input
+          placeholder="Wyszukaj po nazwie"
+          (emitSearch)="onSearch($event)"
+          [(ngModel)]="filters().name"
+        />
+        <app-sort-menu [options]="sortOptions()" [(state)]="sortState" (sortChange)="onSortChange($event)" />
+      </div>
+      <div class="content__list_container__list">
+        <app-custom-list
+          [items]="events()"
+          [itemTemplate]="eventItemTemplate"
+          [isSelectable]="true"
+          [(selectedItem)]="selectedEvent"
+          (selectEmit)="onEventSelect($event)"
+        />
+      </div>
+    </div>
+  }
+  <div class="content__selected_container"></div>
+
+</div>
+
+
+
+<ng-template #eventItemTemplate let-item>
+  <app-event-item [event]="item" />
+</ng-template>
