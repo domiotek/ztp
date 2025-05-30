@@ -3,7 +3,7 @@ package com.example.fintrack.userevent;
 import com.example.fintrack.event.EventStatus;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class UserEventSpecification {
 
@@ -16,7 +16,7 @@ public class UserEventSpecification {
     }
 
     public static Specification<UserEvent> hasEventStatus(EventStatus eventStatus) {
-        LocalDateTime now = LocalDateTime.now();
+        ZonedDateTime now = ZonedDateTime.now();
 
         return switch (eventStatus) {
             case UPCOMING -> (root, query, builder) -> builder
@@ -30,11 +30,11 @@ public class UserEventSpecification {
         };
     }
 
-    public static Specification<UserEvent> hasEventStartedAfter(LocalDateTime date) {
+    public static Specification<UserEvent> hasEventStartedAfter(ZonedDateTime date) {
         return (root, query, builder) -> builder.greaterThanOrEqualTo(root.get("event").get("startDateTime"), date);
     }
 
-    public static Specification<UserEvent> hasEventStartedBefore(LocalDateTime date) {
+    public static Specification<UserEvent> hasEventStartedBefore(ZonedDateTime date) {
         return (root, query, builder) -> builder.lessThanOrEqualTo(root.get("event").get("startDateTime"), date);
     }
 }

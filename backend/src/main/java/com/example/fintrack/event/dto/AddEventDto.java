@@ -3,7 +3,7 @@ package com.example.fintrack.event.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public record AddEventDto(
         @NotBlank
@@ -11,7 +11,7 @@ public record AddEventDto(
         @NotNull
         Long currencyId,
         @NotNull
-        LocalDateTime startDate,
-        LocalDateTime endDate
+        ZonedDateTime startDate,
+        ZonedDateTime endDate
 ) {
 }

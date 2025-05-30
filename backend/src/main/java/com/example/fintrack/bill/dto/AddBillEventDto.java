@@ -1,11 +1,11 @@
 package com.example.fintrack.bill.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public record AddBillEventDto(
         String name,
-        LocalDateTime date,
+        ZonedDateTime date,
         BigDecimal amount,
         Long categoryId,
         Long paidById

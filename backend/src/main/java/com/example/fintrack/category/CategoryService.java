@@ -11,7 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import static com.example.fintrack.category.CategorySpecification.*;
 
@@ -24,7 +24,7 @@ public class CategoryService {
     private final UserProvider userProvider;
 
     public Page<CategoryDto> getCategories(
-            String name, LocalDateTime from, LocalDateTime to, SortDirection sortOrder, int page, int size
+            String name, ZonedDateTime from, ZonedDateTime to, SortDirection sortOrder, int page, int size
     ) {
         User loggedUser = userProvider.getLoggedUser();
 
@@ -41,7 +41,6 @@ public class CategoryService {
         if(from != null && to != null) {
             categorySpecification = categorySpecification.and(hasCategoryBillsBetween(from, to));
         }
-
 
         Sort.Direction sortDirection = sortOrder.toSortDirection();
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(sortDirection, "name"));

@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -18,8 +19,8 @@ public class CurrencyService {
 
     public List<CurrencyDto> getCurrenciesWithLatestRate() {
         LocalDate now = LocalDate.now();
-        LocalDateTime startDate = now.atStartOfDay();
-        LocalDateTime endDate = startDate.plusDays(1);
+        ZonedDateTime startDate = now.atStartOfDay().atZone(ZoneId.systemDefault());
+        ZonedDateTime endDate = startDate.plusDays(1);
 
         List<Rate> rates = rateRepository.findRatesByDateBetween(startDate, endDate);
 

@@ -3,12 +3,12 @@ package com.example.fintrack.category.dto;
 import lombok.Builder;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Builder
 public record LimitDto(
         BigDecimal amount,
-        LocalDateTime startDateTime,
-        LocalDateTime endDateTime
+        ZonedDateTime startDateTime,
+        ZonedDateTime endDateTime
 ) {
 }

@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @RestController
 @RequestMapping("/bills")
@@ -22,8 +22,8 @@ public class BillController {
 
     @GetMapping
     public ResponseEntity<Page<BillDto>> getBills(
-            @RequestParam LocalDateTime from,
-            @RequestParam LocalDateTime to,
+            @RequestParam ZonedDateTime from,
+            @RequestParam ZonedDateTime to,
             @RequestParam (required = false) Long categoryId,
             @RequestParam SortDirection sortDirection,
             @RequestParam int page,

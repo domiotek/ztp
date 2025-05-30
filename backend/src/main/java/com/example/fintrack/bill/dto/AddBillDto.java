@@ -7,7 +7,7 @@ import lombok.Builder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Builder
 public record AddBillDto(
@@ -20,7 +20,7 @@ public record AddBillDto(
    @NotNull
    Long currencyId,
    @NotNull
-   LocalDateTime date,
+   ZonedDateTime date,
    Long eventId,
    Long paidBy,
    Long userId

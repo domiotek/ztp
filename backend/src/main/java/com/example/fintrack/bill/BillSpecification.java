@@ -2,7 +2,7 @@ package com.example.fintrack.bill;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class BillSpecification {
 
@@ -14,7 +14,7 @@ public class BillSpecification {
         return (root, query, builder) -> builder.equal(root.get("paidBy").get("id"), paidId);
     }
 
-    public static Specification<Bill> hasBillsBetweenDates(LocalDateTime from, LocalDateTime to) {
+    public static Specification<Bill> hasBillsBetweenDates(ZonedDateTime from, ZonedDateTime to) {
         return (root, query, builder) -> builder.between(root.get("date"), from, to);
     }
 

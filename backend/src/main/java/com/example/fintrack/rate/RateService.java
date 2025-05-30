@@ -12,7 +12,7 @@ import org.springframework.web.client.RestClient;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import static com.example.fintrack.exception.BusinessErrorCodes.*;
@@ -54,7 +54,7 @@ public class RateService {
 
         List<Currency> currencies = currencyRepository.findAll();
 
-        LocalDateTime now = LocalDateTime.now();
+        ZonedDateTime now = ZonedDateTime.now();
 
         List<Rate> rates = currencies.stream()
                 .map(currency -> {

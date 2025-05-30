@@ -11,7 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 @Entity
@@ -49,7 +49,7 @@ public class Bill {
     private String name;
 
     @Column(nullable = false)
-    private LocalDateTime date;
+    private ZonedDateTime date;
 
     @Column(nullable = false)
     private BigDecimal amount;

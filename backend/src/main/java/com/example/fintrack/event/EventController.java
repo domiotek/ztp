@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @RestController
@@ -28,8 +28,8 @@ public class EventController {
     public ResponseEntity<Page<EventDto>> getUserEvents(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) EventStatus eventStatus,
-            @RequestParam(required = false) LocalDateTime fromDate,
-            @RequestParam(required = false) LocalDateTime toDate,
+            @RequestParam(required = false) ZonedDateTime fromDate,
+            @RequestParam(required = false) ZonedDateTime toDate,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {

@@ -6,7 +6,7 @@ import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class CategorySpecification {
 
@@ -18,21 +18,21 @@ public class CategorySpecification {
         return (root, query, builder) ->  builder.like(builder.lower(root.get("name")), "%" + categoryName.toLowerCase() + "%");
     }
 
-    public static Specification<Category> hasCategoryBillsBetween(LocalDateTime from, LocalDateTime to) {
+    public static Specification<Category> hasCategoryBillsBetween(ZonedDateTime from, ZonedDateTime to) {
         return (root, query, builder) ->  {
             Join<Category, Bill> billJoin = root.join("bills", JoinType.INNER);
             return builder.between(billJoin.get("date"), from, to);
         };
     }
 
-    public static Specification<Category> hasCategoryLimitsAfter(LocalDateTime from) {
+    public static Specification<Category> hasCategoryLimitsAfter(ZonedDateTime from) {
         return (root, query, builder) ->  {
             Join<Category, Limit> limitJoin = root.join("limits", JoinType.INNER);
             return builder.greaterThan(limitJoin.get("startDateTime"), from);
         };
     }
 
-    public static Specification<Category> hasCategoryLimitsBefore(LocalDateTime to) {
+    public static Specification<Category> hasCategoryLimitsBefore(ZonedDateTime to) {
         return (root, query, builder) ->  {
             Join<Category, Limit> limitJoin = root.join("limits", JoinType.INNER);
             return builder.lessThan(limitJoin.get("endDateTime"), to);

@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.Set;
 
@@ -34,18 +34,16 @@ public class Event {
 
     @OneToMany(mappedBy = "event")
     @ToString.Exclude
-    private Set<Bill> bills;
-
-    @Column(nullable = false)
+    private Set<Bill> bills;    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
-    private LocalDateTime startDateTime;
+    private ZonedDateTime startDateTime;
 
-    private LocalDateTime endDateTime;
+    private ZonedDateTime endDateTime;
 
     public EventStatus getEventStatus() {
-        LocalDateTime now = LocalDateTime.now();
+        ZonedDateTime now = ZonedDateTime.now();
 
         if (now.isBefore(startDateTime)) {
             return EventStatus.UPCOMING;

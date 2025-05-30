@@ -4,14 +4,14 @@ import com.example.fintrack.category.dto.BillCategoryDto;
 import lombok.Builder;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Builder
 public record BillDto(
         Long id,
         String name,
         BillCategoryDto categoryDto,
-        LocalDateTime date,
+        ZonedDateTime date,
         BigDecimal userValue,
         BigDecimal billValue,
         Long currencyId
