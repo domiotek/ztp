@@ -22,6 +22,8 @@ import { SortState } from '../../../../core/models/sort/sort-state';
 import { EVENTS_START_SORT_STATE } from '../../../categories/constants/events-start-sort-state';
 import { SortItem } from '../../../../core/models/sort/sort-item';
 import { EVENTS_SORT_ITEMS } from '../../../categories/constants/events-sort-items';
+import { EventDetailsComponent } from '../../components/event-details/event-details.component';
+import { NoSelectedComponent } from '../../../../shared/components/no-selected/no-selected.component';
 
 @Component({
   selector: 'app-events',
@@ -35,6 +37,8 @@ import { EVENTS_SORT_ITEMS } from '../../../categories/constants/events-sort-ite
     SearchInputComponent,
     FormsModule,
     SortMenuComponent,
+    EventDetailsComponent,
+    NoSelectedComponent,
   ],
   templateUrl: './events.component.html',
   styleUrl: './events.component.scss',
@@ -115,8 +119,12 @@ export class EventsComponent implements OnInit {
     });
   }, 300);
 
-  onEventSelect(event: Event): void {
-    console.log('Event selected:', event);
+  onEventSelect(event: Event | null): void {
+    if (!event) {
+      this.selectedEvent.set(null);
+      // return; sonar sie czepia
+    }
+    // console.log('Event selected:', event);
   }
 
   onSortChange(state: SortState): void {

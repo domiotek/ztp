@@ -29,8 +29,17 @@
       </div>
     </div>
   }
-  <div class="content__selected_container"></div>
-
+  <div class="content__selected_container" [style.display]="!isMobile() || selectedEvent() ? 'block' : 'none'">
+    @if (selectedEvent()) {
+      <app-event-details
+        [event]="selectedEvent()!"
+        [isMobile]="isMobile()"
+        (goBackEmit)="onEventSelect(null)"
+      />
+    } @else if (!isMobile()) {
+      <app-no-selected placeholder="Nie wybrano wydarzenia" />
+    }
+  </div>
 </div>
 
 

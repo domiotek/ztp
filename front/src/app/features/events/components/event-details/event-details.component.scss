@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  padding: 0;
+  flex-direction: column;
+  gap: 24px;
+  height: auto;
+  overflow-y: visible;
+  position: relative;
+  max-width: calc(100vw - 64px);
+}
+
+@media (max-width: 768px) {
+  :host {
+    padding: 0;
+    height: 100%;
+    overflow: visible;
+  }
+}
