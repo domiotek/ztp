@@ -1,0 +1,14 @@
+@use '../../../styles/variables' as *;
+
+:host {
+  font-size: 16px;
+  height: 2em;
+  aspect-ratio: 1 / 1;
+  padding: 0.25em 0.25em;
+  border-radius: 50%;
+  background-color: $light-blue-1;
+  color: $light-gray-2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

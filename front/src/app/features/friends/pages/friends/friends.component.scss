@@ -1,0 +1,57 @@
+@use '../../../../styles/variables' as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.colored-icon-button {
+  color: $light-blue-1;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+}
+
+.content {
+  display: flex;
+
+  .chats-list-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    .chats-list-header {
+      display: flex;
+      gap: 0.5em;
+    }
+  }
+
+  app-search-input {
+    width: 100%;
+  }
+
+  .chat-container {
+    flex: 1;
+  }
+}
+
+@media (width > 600px) {
+  .chats-list-header {
+    max-width: 60vw;
+  }
+}
+
+@media (width > 768px) {
+  .chats-list-container {
+    max-width: 30vw;
+  }
+
+  .content {
+    gap: 4em;
+  }
+}

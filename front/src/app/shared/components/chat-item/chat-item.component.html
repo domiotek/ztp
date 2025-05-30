@@ -1,0 +1,17 @@
+<app-avatar [name]="item().name"></app-avatar>
+<div class="middle-container" [ngClass]="{ unread: isUnread }">
+  <div class="name">{{ item().name }}</div>
+  <div class="last-message">
+    @if (isAuthorOfLastMessage) {
+      Ty:
+    }
+    <span class="collapsable">{{ item().lastMessage.content }}</span> <span class="separator"></span> {{ sentDiff }}
+  </div>
+</div>
+<div class="end-container">
+  @if (isUnread) {
+    <span class="unread-indicator"></span>
+  } @else {
+    <mat-icon>chevron_right</mat-icon>
+  }
+</div>

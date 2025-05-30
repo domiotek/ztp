@@ -1,0 +1,62 @@
+@use '../../../styles/variables' as *;
+
+:host {
+  display: flex;
+  gap: 1em;
+  width: 100%;
+}
+
+.middle-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+
+  .last-message {
+    display: flex;
+    align-items: center;
+    color: $gray;
+    font-size: 0.75em;
+    white-space: nowrap;
+    gap: 0.4em;
+
+    .collapsable {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .separator {
+      display: inline-block;
+      width: 0.25em;
+      height: 0.25em;
+      background: black;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+  }
+
+  &.unread {
+    font-weight: 500;
+    .last-message {
+      color: black;
+    }
+  }
+}
+
+.end-container {
+  display: flex;
+  align-items: center;
+  width: 1em;
+
+  .unread-indicator {
+    display: block;
+    width: 0.75em;
+    height: 0.75em;
+    background-color: $light-blue-1;
+    border-radius: 50%;
+  }
+
+  mat-icon {
+    margin-left: -0.25em;
+  }
+}

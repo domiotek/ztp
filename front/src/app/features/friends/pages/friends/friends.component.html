@@ -1,1 +1,34 @@
-<p>friends works!</p>
+<div class="header">
+  <button class="colored-icon-button" type="button" mat-icon-button><mat-icon>pending_actions</mat-icon></button>
+  <button type="button" mat-flat-button><mat-icon>add</mat-icon> Zaproś znajomego</button>
+</div>
+<div class="content">
+  @if (!isMobile() || !selectedChatId()) {
+    <div class="chats-list-container">
+      <div class="chats-list-header">
+        <app-search-input placeholder="Wyszukaj po nazwie" (emitSearch)="onSearch($event)" [(ngModel)]="searchValue" />
+        <button class="colored-icon-button" type="button" mat-icon-button><mat-icon>add</mat-icon></button>
+      </div>
+
+      <div class="chats-list">
+        <app-custom-list
+          [items]="chats()"
+          [itemTemplate]="categoryItemTemplate"
+          [isSelectable]="true"
+          [(selectedItem)]="selectedChatId"
+          (selectEmit)="onChatSelect($event)"
+        />
+      </div>
+    </div>
+  }
+  <div class="chat-container" [style.display]="!isMobile() || selectedChatId() ? 'block' : 'none'">
+    @if (selectedChatId()) {
+    } @else if (!isMobile()) {
+      <app-no-selected placeholder="Nie wybrano czatu" />
+    }
+  </div>
+</div>
+
+<ng-template #categoryItemTemplate let-item>
+  <app-chat-item [item]="item" />
+</ng-template>
