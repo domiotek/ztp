@@ -3,7 +3,7 @@ import { environment } from '../../../environments/environments';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NewBillRequest } from '../../models/bills/new-bill-request';
 import { BaseApiService } from '../base-api.service';
-import { map, Observable, of, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { Bill } from '../../models/bills/bill.model';
 import { BasePagingResponse } from '../../models/api/paging.model';
 import { BillsApiRequest } from '../../models/bills/get-many.model';
