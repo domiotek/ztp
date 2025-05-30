@@ -9,6 +9,7 @@ import { CurrencySelectorComponent } from '../../../../shared/components/currenc
 import { ApiErrorCode } from '../../../../core/models/error-codes.enum';
 import { AlertPanelComponent } from '../../../../shared/components/alert-panel/alert-panel.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTimepickerModule } from '@angular/material/timepicker';
 import { NewBillRequest } from '../../../../core/models/bills/new-bill-request';
 import { AppStateStore } from '../../../../core/store/app-state.store';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -18,7 +19,7 @@ import { FormProgressBarComponent } from '../../../../shared/components/form-pro
 import { MatSelectModule } from '@angular/material/select';
 import { Category } from '../../../../core/models/category/category.model';
 import { BillsService } from '../../../../core/services/bills/bills.service';
-import { CategoriesService } from '../../../../core/services/categories/categories.service';
+import { CategoryService } from '../../../../core/services/category/category.service';
 
 @Component({
   selector: 'app-add-bill-dialog',
@@ -32,6 +33,7 @@ import { CategoriesService } from '../../../../core/services/categories/categori
     CurrencySelectorComponent,
     AlertPanelComponent,
     MatDatepickerModule,
+    MatTimepickerModule,
     FormProgressBarComponent,
     MatSelectModule,
   ],
@@ -42,6 +44,7 @@ export class AddBillDialogComponent implements OnInit {
   form = new FormGroup({
     title: new FormControl<string>('', { validators: [Validators.required, Validators.minLength(3)] }),
     date: new FormControl<string>(DateTime.now().toISODate(), Validators.required),
+    time: new FormControl<string>(DateTime.now().toFormat('HH:mm'), Validators.required),
     amount: new FormControl<number>(0, { validators: [Validators.required, Validators.min(0.01)] }),
     categoryId: new FormControl<number | null>(null, { validators: [Validators.required] }),
     currencyId: new FormControl<number>(0, { validators: [Validators.required] }),
@@ -55,7 +58,7 @@ export class AddBillDialogComponent implements OnInit {
   hasSetOtherCurrency = signal(false);
 
   readonly billsService = inject(BillsService);
-  readonly categoriesService = inject(CategoriesService);
+  readonly categoryService = inject(CategoryService);
   readonly appStateStore = inject(AppStateStore);
   readonly dialogRef = inject(MatDialogRef<AddBillDialogComponent>);
   readonly destroyRef = inject(DestroyRef);
@@ -86,8 +89,8 @@ export class AddBillDialogComponent implements OnInit {
       this.hasSetOtherCurrency.set(value !== this.userDefaultCurrency()?.id);
     });
 
-    this.categoriesService.getCategoriesList().subscribe((categories) => {
-      this.categories.set(categories);
+    this.categoryService.getCategoriesList().subscribe((categories) => {
+      this.categories.set(categories.content);
     });
   }
 
@@ -100,10 +103,18 @@ export class AddBillDialogComponent implements OnInit {
   onSubmit() {
     if (!this.form.valid) return;
 
+    const date = DateTime.fromISO(this.form.value.date!);
+    const time = DateTime.fromISO(this.form.value.time!);
+
+    const dateTime = date.set({
+      hour: time.hour,
+      minute: time.minute,
+    });
+
     this.submitting.set(true);
     const billData: NewBillRequest = {
-      title: this.form.value.title!,
-      date: this.form.value.date!,
+      name: this.form.value.title!,
+      date: dateTime.toISO()!,
       amount: this.form.value.amount!,
       categoryId: this.form.value.categoryId!,
       currencyId: this.form.value.currencyId!,

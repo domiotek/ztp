@@ -1,3 +1,5 @@
+@use '../../../../styles/_variables' as *;
+
 :host {
   flex: 1;
   min-width: min(100%, 300px);
@@ -29,7 +31,8 @@
     display: none;
   }
 
-  .loadingState {
+  .loadingState,
+  .errorState {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,6 +51,17 @@
 
     mat-spinner {
       width: 50px !important;
+    }
+  }
+
+  .errorState {
+    gap: 2em;
+
+    mat-icon {
+      font-size: 4em;
+      width: 1em;
+      height: 1em;
+      color: $light-blue-1;
     }
   }
 }

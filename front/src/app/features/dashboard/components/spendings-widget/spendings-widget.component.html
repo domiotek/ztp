@@ -1,1 +1,10 @@
-<p>spendings-widget works!</p>
+<app-custom-list
+  [items]="bills()"
+  [itemTemplate]="billItemTemplate"
+  [isSelectable]="true"
+  (selectEmit)="triggerAction()"
+/>
+
+<ng-template #billItemTemplate let-item>
+  <app-transaction-item [transaction]="item" [userCurrency]="(appStateStore.userDefaultCurrency$ | async)!" />
+</ng-template>

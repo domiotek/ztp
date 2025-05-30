@@ -11,15 +11,19 @@
   <mat-card-content>
     @if (loading()) {
       @if (refreshing()) {
-        <ng-container *ngTemplateOutlet="reloadingContent"></ng-container>
+        <ng-container *ngTemplateOutlet="reloadingContent" />
       } @else {
-        <ng-container *ngTemplateOutlet="loadingContent"></ng-container>
+        <ng-container *ngTemplateOutlet="loadingContent" />
       }
     }
 
-    <div class="widgetContent" [ngClass]="{ 'widgetContent--loading': loading() && !refreshing() }">
-      <ng-content></ng-content>
-    </div>
+    @if (loadingError()) {
+      <ng-container *ngTemplateOutlet="loadingErrorContent" />
+    } @else {
+      <div class="widgetContent" [ngClass]="{ 'widgetContent--loading': loading() && !refreshing() }">
+        <ng-content></ng-content>
+      </div>
+    }
   </mat-card-content>
 </mat-card>
 
@@ -34,5 +38,12 @@
   <div class="loadingState overlay">
     <mat-spinner mode="indeterminate"></mat-spinner>
     <h5>Odświeżanie...</h5>
+  </div>
+</ng-template>
+
+<ng-template #loadingErrorContent>
+  <div class="errorState">
+    <mat-icon>error</mat-icon>
+    <h5>Wystąpił błąd przy pobieraniu danych</h5>
   </div>
 </ng-template>

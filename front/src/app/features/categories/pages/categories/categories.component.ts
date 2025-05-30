@@ -16,15 +16,16 @@ import { SortItem } from '../../../../core/models/sort/sort-item';
 import { CATEGORIES_SORT_ITEMS } from '../../constants/categories-sort-items';
 import { CATEGORIES_START_SORT_STATE } from '../../constants/categories-start-sort-state';
 import { CustomListComponent } from '../../../../shared/components/custom-list/custom-list.component';
-import { CategoryItemComponent } from '../../components/category-item/category-item.component';
 import { CategoryService } from '../../../../core/services/category/category.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Category } from '../../../../core/models/category/category';
+import { Category } from '../../../../core/models/category/category.model';
 import { AppStateStore } from '../../../../core/store/app-state.store';
 import { CategoryDetailsComponent } from '../../components/category-details/category-details.component';
 import { NoSelectedComponent } from '../../../../shared/components/no-selected/no-selected.component';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { tap } from 'rxjs';
+import { CategoryItemComponent } from '../../../../shared/components/category-item/category-item.component';
+import { RoutingService } from '../../../../core/services/routing/routing.service';
 
 @Component({
   selector: 'app-categories',
@@ -55,6 +56,8 @@ export class CategoriesComponent implements OnInit {
   private readonly categoryState = inject(CategoryStateStore);
 
   private readonly observer = inject(BreakpointObserver);
+
+  private readonly routingService = inject(RoutingService);
 
   readonly timeRange = signal<TimeRange>(EMPTY_CATEGORY_STATE.timeRange);
 
@@ -104,6 +107,17 @@ export class CategoriesComponent implements OnInit {
       .subscribe();
 
     this.categoryService.getCategoriesList().pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
+
+    const routingState = this.routingService.getAndConsumeNavigationState();
+
+    if (routingState['categoryId']) {
+      const categoryId = routingState['categoryId'];
+      this.selectedCategory.set(this.categories().find((c) => c.id === categoryId) ?? null);
+    }
+
+    if (routingState['timeRange']) {
+      this.timeRange.set(routingState['timeRange'] as TimeRange);
+    }
   }
 
   onProjectionDateChange = debounceHandler((timeRange: TimeRange) => {

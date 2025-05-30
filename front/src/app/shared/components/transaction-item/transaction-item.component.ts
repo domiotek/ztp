@@ -1,5 +1,5 @@
 import { Component, inject, input } from '@angular/core';
-import { Bill } from '../../../core/bills/bill';
+import { Bill } from '../../../core/models/bills/bill.model';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { Currency } from '../../../core/models/currency/currency.model';

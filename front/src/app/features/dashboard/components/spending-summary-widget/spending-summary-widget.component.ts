@@ -18,7 +18,7 @@ export class SpendingSummaryWidgetComponent extends BaseWidgetComponent implemen
 
   loadData(): void {
     setTimeout(() => {
-      this.onLoad.next();
+      this.onLoad.next(true);
     }, 1000);
   }
 

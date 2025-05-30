@@ -1,7 +1,10 @@
 export interface NewBillRequest {
-  title: string;
+  name: string;
   date: string;
   amount: number;
   currencyId: number;
   categoryId: number;
+  eventId?: number;
+  paidBy?: number;
+  userId?: number;
 }
