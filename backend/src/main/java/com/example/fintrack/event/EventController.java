@@ -65,6 +65,13 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @DeleteMapping("/{event-id}")
+    public ResponseEntity<Void> deleteEvent(@PathVariable("event-id") long eventId) {
+        eventService.deleteEvent(eventId);
+
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping("/{event-id}/bills")
     public ResponseEntity<Void> addBillToEvent(
             @RequestBody AddBillEventDto addBillEventDto,

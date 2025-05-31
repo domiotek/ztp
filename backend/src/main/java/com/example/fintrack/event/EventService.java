@@ -9,6 +9,7 @@ import com.example.fintrack.event.enums.EventSortField;
 import com.example.fintrack.event.enums.EventStatus;
 import com.example.fintrack.security.service.UserProvider;
 import com.example.fintrack.user.User;
+import com.example.fintrack.user.UserRepository;
 import com.example.fintrack.userevent.UserEvent;
 import com.example.fintrack.userevent.UserEventRepository;
 import com.example.fintrack.utils.SortDirection;
@@ -37,6 +38,7 @@ public class EventService {
     private final UserProvider userProvider;
     private final CurrencyRepository currencyRepository;
     private final CurrencyConverter currencyConverter;
+    private final UserRepository userRepository;
 
     public Page<EventDto> getUserEvents(
             String name, EventStatus eventStatus,
@@ -84,14 +86,29 @@ public class EventService {
 
         eventRepository.save(event);
 
-        User user = userProvider.getLoggedUser();
+        User loggedUser = userProvider.getLoggedUser();
 
-        UserEvent userEvent = new UserEvent();
-        userEvent.setEvent(event);
-        userEvent.setUser(user);
-        userEvent.setIsFounder(true);
+        UserEvent founderUserEvent = new UserEvent();
+        founderUserEvent.setEvent(event);
+        founderUserEvent.setUser(loggedUser);
+        founderUserEvent.setIsFounder(true);
 
-        userEventRepository.save(userEvent);
+        userEventRepository.save(founderUserEvent);
+
+        List<User> additionalUsers = userRepository.findAllById(addEventDto.usersIds());
+
+        List<UserEvent> userEvents = additionalUsers.stream()
+                .filter(user -> !user.equals(loggedUser))
+                .map(user -> {
+                    UserEvent userEvent = new UserEvent();
+                    userEvent.setEvent(event);
+                    userEvent.setUser(user);
+                    userEvent.setIsFounder(false);
+                    return userEvent;
+                })
+                .toList();
+
+        userEventRepository.saveAll(userEvents);
     }
 
     public EventSummaryDto getEventSummary(long eventId) {
@@ -231,5 +248,11 @@ public class EventService {
         }
 
         return settlements;
+    }
+
+    public void deleteEvent(long eventId) {
+        Event event = eventRepository.findById(eventId).orElseThrow(EVENT_DOES_NOT_EXIST::getError);
+
+        eventRepository.delete(event);
     }
 }

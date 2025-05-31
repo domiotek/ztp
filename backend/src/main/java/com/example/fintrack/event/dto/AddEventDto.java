@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 public record AddEventDto(
         @NotBlank
@@ -12,6 +13,8 @@ public record AddEventDto(
         Long currencyId,
         @NotNull
         ZonedDateTime startDate,
-        ZonedDateTime endDate
+        ZonedDateTime endDate,
+        @NotNull
+        List<Long> usersIds
 ) {
 }

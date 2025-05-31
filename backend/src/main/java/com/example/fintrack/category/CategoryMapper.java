@@ -5,9 +5,6 @@ import com.example.fintrack.category.dto.CategoryDto;
 import com.example.fintrack.category.limit.LimitMapper;
 
 import java.math.BigDecimal;
-import java.util.stream.Collectors;
-
-import static com.example.fintrack.category.limit.LimitMapper.*;
 
 public class CategoryMapper {
 
@@ -25,7 +22,7 @@ public class CategoryMapper {
         return category.getBills()
                 .stream()
                 .map(Bill::getAmount)
-                .reduce(BigDecimal.ZERO, (a, b) -> a.add(b))
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
                 .doubleValue();
     }
 }

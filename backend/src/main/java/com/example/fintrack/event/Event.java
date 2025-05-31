@@ -14,6 +14,8 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.Set;
 
+import static jakarta.persistence.CascadeType.*;
+
 @Entity
 @Getter
 @Setter
@@ -29,13 +31,15 @@ public class Event {
     @JoinColumn(name = "currency_id", nullable = false)
     private Currency currency;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", cascade = {PERSIST, MERGE, REMOVE})
     @ToString.Exclude
     private Set<UserEvent> users;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", cascade = {PERSIST, MERGE, REMOVE})
     @ToString.Exclude
-    private Set<Bill> bills;    @Column(nullable = false)
+    private Set<Bill> bills;
+
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
