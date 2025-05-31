@@ -3,4 +3,5 @@ export interface Category {
   name: string;
   color: string;
   limit?: number;
+  userCosts: number;
 }

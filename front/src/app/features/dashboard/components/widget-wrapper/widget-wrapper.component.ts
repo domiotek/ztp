@@ -20,6 +20,7 @@ export class WidgetWrapperComponent implements AfterContentInit {
   header = input.required<string>();
 
   loading = signal(true);
+  loadingError = signal(false);
   refreshing = signal(false);
   hasInteraction = signal(false);
 
@@ -36,13 +37,15 @@ export class WidgetWrapperComponent implements AfterContentInit {
       this.hasInteraction.set(config.hasInteraction);
     });
 
-    this.widget.onLoad$.pipe(takeUntilDestroyed(this.destryRef)).subscribe(() => {
+    this.widget.onLoad$.pipe(takeUntilDestroyed(this.destryRef)).subscribe((hasLoaded) => {
       this.loading.set(false);
+      this.loadingError.set(!hasLoaded);
       this.refreshing.set(false);
     });
 
     this.widget.onRefresh$.pipe(takeUntilDestroyed(this.destryRef)).subscribe(() => {
       this.loading.set(true);
+      this.loadingError.set(false);
       this.refreshing.set(true);
     });
   }

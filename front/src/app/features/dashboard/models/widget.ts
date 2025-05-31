@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 
 export interface IWidget {
   onInit$: Observable<IWidgetConfig>;
-  onLoad$: Observable<void>;
+  onLoad$: Observable<boolean>;
   onRefresh$: Observable<void>;
 
   loadData(): void;

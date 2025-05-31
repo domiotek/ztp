@@ -14,7 +14,7 @@
   </div>
   <div class="summary_container__content">
     <p class="main_summary">
-      {{ `${category().spendLimit} ${category().limit ? '/' + category().limit : ''} ${userCurrency().code}` }}
+      {{ `${category().userCosts} ${category().limit ? '/' + category().limit : ''} ${userCurrency().code}` }}
     </p>
     @if (sameMonth()) {
       @if (category().limit) {

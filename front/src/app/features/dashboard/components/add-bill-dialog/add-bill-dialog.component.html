@@ -30,23 +30,41 @@
       }
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label for="date">Data</mat-label>
-      <input
-        matInput
-        formControlName="date"
-        name="date"
-        placeholder="Wprowadź datę wydatku"
-        required
-        [matDatepicker]="picker"
-        [matDatepickerFilter]="dateFilter"
-      />
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-      @if (form.get('date')?.hasError('required')) {
-        <mat-error> Data jest wymagana </mat-error>
-      }
-    </mat-form-field>
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label for="date">Data</mat-label>
+        <input
+          matInput
+          formControlName="date"
+          name="date"
+          placeholder="Wprowadź datę wydatku"
+          required
+          [matDatepicker]="date_picker"
+          [matDatepickerFilter]="dateFilter"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="date_picker" />
+        <mat-datepicker #date_picker />
+        @if (form.get('date')?.hasError('required')) {
+          <mat-error> Data jest wymagana </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label for="time">Godzina</mat-label>
+        <input
+          matInput
+          formControlName="time"
+          name="time"
+          placeholder="Wprowadź godzinę wydatku"
+          required
+          [matTimepicker]="time_picker"
+        />
+        <mat-timepicker-toggle matIconSuffix [for]="time_picker" />
+        <mat-timepicker #time_picker />
+        @if (form.get('time')?.hasError('required')) {
+          <mat-error> Godzina jest wymagana </mat-error>
+        }
+      </mat-form-field>
+    </div>
 
     <div class="form-row">
       <mat-form-field appearance="outline">

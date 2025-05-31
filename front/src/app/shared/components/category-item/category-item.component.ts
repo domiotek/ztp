@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
-import { Category } from '../../../../core/models/category/category';
-import { Currency } from '../../../../core/models/currency/currency.model';
+import { Category } from '../../../core/models/category/category.model';
+import { Currency } from '../../../core/models/currency/currency.model';
 
 @Component({
   selector: 'app-category-item',

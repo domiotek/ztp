@@ -19,7 +19,7 @@ export class EventsWidgetComponent extends BaseWidgetComponent implements IWidge
 
   loadData(): void {
     setTimeout(() => {
-      this.onLoad.next();
+      this.onLoad.next(true);
     }, 1000);
   }
 

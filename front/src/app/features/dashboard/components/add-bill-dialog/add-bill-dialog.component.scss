@@ -18,8 +18,8 @@ form {
       flex: 1;
     }
 
-    mat-form-field {
-      flex-basis: 90%;
+    mat-form-field:nth-child(1) {
+      flex-basis: 15%;
     }
   }
 }

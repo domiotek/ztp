@@ -10,11 +10,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({ template: '' })
 export abstract class BaseWidgetComponent implements IWidget, OnInit {
   protected readonly onInit = new ReplaySubject<IWidgetConfig>(1);
-  protected readonly onLoad = new ReplaySubject<void>(1);
+  protected readonly onLoad = new ReplaySubject<boolean>(1);
   protected readonly onRefresh = new ReplaySubject<void>(1);
 
   onInit$: Observable<IWidgetConfig> = this.onInit.asObservable();
-  onLoad$: Observable<void> = this.onLoad.asObservable();
+  onLoad$: Observable<boolean> = this.onLoad.asObservable();
   onRefresh$: Observable<void> = this.onRefresh.asObservable();
 
   timeRange = signal<TimeRange>(EMPTY_DASHBOARD_STATE.timeRange);

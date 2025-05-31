@@ -4,6 +4,8 @@ import { CategoriesComponent } from './categories.component';
 import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { AppStateStore } from '../../../../core/store/app-state.store';
 import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('CategoriesComponent', () => {
   let component: CategoriesComponent;
@@ -11,7 +13,13 @@ describe('CategoriesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [provideExperimentalZonelessChangeDetection(), AppStateStore, provideLuxonDateAdapter()],
+      providers: [
+        provideExperimentalZonelessChangeDetection(),
+        AppStateStore,
+        provideLuxonDateAdapter(),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+      ],
       imports: [CategoriesComponent],
     }).compileComponents();
 
