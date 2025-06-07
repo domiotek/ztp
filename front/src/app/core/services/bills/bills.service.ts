@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { environment } from '../../../environments/environments';
+import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NewBillRequest } from '../../models/bills/new-bill-request';
 import { BaseApiService } from '../base-api.service';

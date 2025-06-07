@@ -1,7 +1,7 @@
 import { UpdateEventBillRequest } from '../../models/events/update-event-bill-request';
 import { Observable, Subject, tap } from 'rxjs';
 import { inject, Injectable, signal } from '@angular/core';
-import { environment } from '../../../environments/environments';
+import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { EventResponse } from '../../models/events/event-response';
 import { EventFilters } from '../../models/events/event-filters';

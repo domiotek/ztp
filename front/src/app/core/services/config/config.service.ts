@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable, of, tap } from 'rxjs';
 import { ConfigResponse } from '../../models/auth/config-response.model';
 import { AppStateStore } from '../../store/app-state.store';
-import { environment } from '../../../environments/environments';
+import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Currency } from '../../models/currency/currency.model';
 

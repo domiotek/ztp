@@ -16,6 +16,8 @@
 
 Project created for _Zaawansowane Technologie Programowania_ class on Cracow University of Technology.
 
+Application showcase instance is available at http://fintrack.omiotech.pl.
+
 ### Technology stack
 
 - Java 21
@@ -52,6 +54,24 @@ To quickly launch the application follow these steps:
 
 This will start the application and make it accessible on your local machine.
 
+### Environment Configuration
+
+The application supports environment variables for production deployments. You can configure the following variables:
+
+#### Available Environment Variables
+
+| Variable               | Description                                      | Default Value           | Used By  |
+| ---------------------- | ------------------------------------------------ | ----------------------- | -------- |
+| `CORS_ALLOWED_ORIGINS` | Comma-separated list of allowed origins for CORS | `http://localhost:4200` | Backend  |
+| `API_URL`              | Backend API URL used by frontend                 | `http://localhost:8080` | Frontend |
+
+**Important Notes:**
+
+- The `API_URL` is used during the Angular build process and cannot be changed at runtime
+- If you change `API_URL`, you need to rebuild the frontend container
+- The `CORS_ALLOWED_ORIGINS` can include multiple domains separated by commas
+- Make sure to include both `http` and `https` variants if needed
+
 ### Development
 
 To make changes in this project you will need to set-up your environment.
@@ -76,7 +96,7 @@ To make changes in this project you will need to set-up your environment.
    ```bash
    java -jar target/fintrack-0.0.1-SNAPSHOT.jar
    ```
-5. In front subdirectory, install depenencies and launch dev server:
+5. In front subdirectory, install dependencies and launch dev server:
    ```bash
    npm install
    ```

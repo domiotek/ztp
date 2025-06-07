@@ -5,7 +5,7 @@ import { FriendRequest } from '../../models/friend/friend-request.model';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { User } from '../../models/user/user.model';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environments';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

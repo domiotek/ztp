@@ -4,7 +4,7 @@ import { PrivateChat } from '../../models/chat/chat.model';
 import { ChatMessage } from '../../models/chat/message.model';
 import { BasePagingResponse } from '../../models/api/paging.model';
 import { IMessage } from '@stomp/stompjs';
-import { environment } from '../../../environments/environments';
+import { environment } from '../../../environments/environment';
 import SockJS from 'sockjs-client/dist/sockjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppStateStore } from '../../store/app-state.store';

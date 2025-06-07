@@ -3,7 +3,7 @@ import { Category } from '../../models/category/category.model';
 import { map, Observable, tap } from 'rxjs';
 import { CategoriesApiRequest } from '../../models/category/get-many.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../../environments/environments';
+import { environment } from '../../../environments/environment';
 import { BasePagingResponse } from '../../models/api/paging.model';
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { AppStateStore } from './../../store/app-state.store';
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../../environments/environments';
+import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, switchMap, tap } from 'rxjs';
 import { LoginRequest } from '../../models/auth/login-request.model';

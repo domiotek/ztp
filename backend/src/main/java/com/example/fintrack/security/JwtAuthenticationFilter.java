@@ -40,12 +40,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
-    ) throws ServletException, IOException {
-        if (request.getServletPath().contains("/auth") ||
+    ) throws ServletException, IOException {        if (request.getServletPath().contains("/auth") ||
                 request.getServletPath().contains("v2/api-docs") ||
                 request.getServletPath().contains("v3/api-docs") ||
                 request.getServletPath().contains("/swagger") ||
-                request.getServletPath().contains("/currencies")
+                request.getServletPath().contains("/currencies") ||
+                request.getServletPath().contains("/api/health")
         ) {
             filterChain.doFilter(request, response);
             return;
@@ -61,9 +61,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 .filter(cookie -> cookie.getName().equals("access_token"))
                 .map(Cookie::getValue)
                 .findFirst()
-                .orElse(null);
-
-        if (accessToken == null) {
+                .orElse(null);        if (accessToken == null) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -81,9 +79,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
-
-                filterChain.doFilter(request, response);
             }
+            filterChain.doFilter(request, response);
         } catch (ExpiredJwtException | ExpiredTokenException e) {
             handleError(response);
         }

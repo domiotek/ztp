@@ -7,40 +7,45 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: fintrack
-    ports:
-      - "${DB_PORT:-5432}:5432"
     volumes:
       - app_data:/var/lib/postgresql/data
     networks:
       - fintrack_network
-
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d fintrack"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
   fintrack_cache_database:
     image: redis/redis-stack-server:latest
     container_name: fintrack_cache_database
     restart: unless-stopped
-    ports:
-      - "${CACHE_DB_PORT:-6379}:6379"
     volumes:
       - app_cache_data:/data
     networks:
       - fintrack_network
+
   fintrack_api:
     build:
       context: backend
       dockerfile: Dockerfile
     container_name: fintrack_api
     restart: unless-stopped
-    ports:
-      - "${API_PORT:-8080}:8080"
     environment:
       SPRING_DB_URL: jdbc:postgresql://fintrack_database:5432/fintrack
       SPRING_DB_USERNAME: postgres
       SPRING_DB_PASSWORD: postgres
       SPRING_CACHE_DB_HOST: "fintrack_cache_database"
-      SPRING_ALLOWED_ORIGINS: "${CORS_ALLOWED_ORIGINS:-http://localhost:4200,http://localhost}"
+      SPRING_ALLOWED_ORIGINS: "${CORS_ALLOWED_ORIGINS}"
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_PROFILES_ACTIVE: "production"
+      APPLICATION_DATABASE_CHECK_SCHEMA: "true"
     depends_on:
-      - fintrack_database
-      - fintrack_cache_database
+      fintrack_database:
+        condition: service_healthy
+      fintrack_cache_database:
+        condition: service_started
     networks:
       - fintrack_network
 
@@ -49,10 +54,8 @@ services:
       context: front
       dockerfile: Dockerfile
       args:
-        API_URL: "${API_URL:-http://localhost:8080}"
+        API_URL: "${API_URL}"
     container_name: fintrack_app
-    ports:
-      - "${WEB_PORT:-80}:80"
     networks:
       - fintrack_network
     depends_on:
