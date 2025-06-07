@@ -41,6 +41,7 @@ describe('AddEventDialogComponent', () => {
     numberOfNotifications: 1,
     currency: currency,
     users: users,
+    chatId: 'string',
   };
 
   beforeEach(async () => {

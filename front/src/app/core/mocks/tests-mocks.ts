@@ -30,6 +30,7 @@ export const mocked_event: Event = {
   numberOfNotifications: 1,
   currency: mocked_currency,
   users: mocked_users,
+  chatId: 'string',
 };
 
 export const mocked_bill: EventBill = {

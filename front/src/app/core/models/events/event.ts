@@ -15,6 +15,7 @@ export interface Event {
   numberOfNotifications: number;
   currency: Currency;
   users: User[];
+  chatId: string;
 }
 
 export interface EventDetails extends Event {

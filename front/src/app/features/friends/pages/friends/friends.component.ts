@@ -49,7 +49,7 @@ export class FriendsComponent implements OnInit {
   readonly searchValue = signal<string>('');
   readonly chats = signal<PrivateChat[]>([]);
   readonly isLoading = signal<boolean>(true);
-  readonly offset = signal<number>(0);
+  readonly currentPage = signal<number>(0);
   readonly hasMorePages = signal<boolean>(true);
   readonly newlyAddedChat = signal<PrivateChat | null>(null);
 
@@ -89,7 +89,7 @@ export class FriendsComponent implements OnInit {
   onSearch(val: string): void {
     this.searchValue.set(val);
     this.chats.set([]);
-    this.offset.set(0);
+    this.currentPage.set(0);
 
     if (this.selectedChat()?.id === this.newlyAddedChat()?.id) {
       this.cleanUpNewlyAddedChat();
@@ -113,6 +113,8 @@ export class FriendsComponent implements OnInit {
 
   onScrolledBottom(): void {
     if (this.isLoading() || !this.hasMorePages()) return;
+
+    this.currentPage.update((page) => page + 1);
     this.loadMoreChats();
   }
 
@@ -165,7 +167,7 @@ export class FriendsComponent implements OnInit {
   private readonly loadMoreChats = callDebounced(
     () => {
       this.isLoading.set(true);
-      this.chatsService.getPrivateChatsList(this.offset(), this.searchValue()).subscribe((chats) => {
+      this.chatsService.getPrivateChatsList(this.currentPage(), this.searchValue()).subscribe((chats) => {
         const currentChats = this.chats();
         this.chats.set([...currentChats, ...chats.content]);
         this.isLoading.set(false);

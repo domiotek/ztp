@@ -20,7 +20,7 @@
       </div>
 
       <div class="chats-list">
-        @if (isLoading() && offset() === 0) {
+        @if (isLoading() && currentPage() === 0) {
           <div></div>
         } @else {
           <ng-scrollbar [buttons]="true" (reachedBottom)="onScrolledBottom()">

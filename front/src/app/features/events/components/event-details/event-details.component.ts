@@ -9,6 +9,7 @@ import { Event } from '../../../../core/models/events/event';
 import { AppStateStore } from '../../../../core/store/app-state.store';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { ChatComponent } from '../../../../shared/controls/chat/chat.component';
 
 @Component({
   selector: 'app-event-details',
@@ -21,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
     EventDetailsSettingsComponent,
     MatButtonModule,
     MatIconModule,
+    ChatComponent,
   ],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.scss',
